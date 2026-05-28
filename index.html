@@ -1,59 +1,896 @@
-<html>
-
+<!DOCTYPE html>
+<html lang="pt-BR">
 <head>
-    <link rel="stylesheet" type="text/css" href="./CSS/main.css">
-    <link rel="stylesheet" type="text/css" href="//cdn.jsdelivr.net/npm/slick-carousel@1.8.1/slick/slick.css" />
-    <title>Ecobox Training</title>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>ECOBOX Training – São Carlos</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Syne:wght@400;500;700;800&display=swap" rel="stylesheet">
+<style>
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+  :root {
+    --black: #090d0b;
+    --dark: #0e1812;
+    --card: #131f17;
+    --border: #1e2e22;
+    --green: #3ecf6b;
+    --green-dim: #28a050;
+    --green-pale: #0e2e18;
+    --white: #f0f5f1;
+    --muted: #7a9482;
+    --accent: #a8f5c2;
+    --ff-display: 'Bebas Neue', sans-serif;
+    --ff-body: 'Syne', sans-serif;
+  }
+
+  html { scroll-behavior: smooth; }
+
+  body {
+    background: var(--black);
+    color: var(--white);
+    font-family: var(--ff-body);
+    font-size: 16px;
+    line-height: 1.6;
+    overflow-x: hidden;
+  }
+
+  /* ── NAV ── */
+  nav {
+    position: fixed;
+    top: 0; left: 0; right: 0;
+    z-index: 100;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 1.1rem 3rem;
+    background: rgba(9,13,11,0.85);
+    backdrop-filter: blur(14px);
+    border-bottom: 1px solid var(--border);
+  }
+  .nav-logo {
+    font-family: var(--ff-display);
+    font-size: 1.7rem;
+    letter-spacing: 0.06em;
+    color: var(--green);
+    text-decoration: none;
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+  }
+  .nav-logo span { color: var(--white); }
+  .nav-links { display: flex; gap: 2rem; list-style: none; }
+  .nav-links a {
+    color: var(--muted);
+    text-decoration: none;
+    font-size: 0.85rem;
+    font-weight: 500;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    transition: color 0.2s;
+  }
+  .nav-links a:hover { color: var(--green); }
+  .nav-cta {
+    background: var(--green);
+    color: var(--black);
+    border: none;
+    padding: 0.6rem 1.4rem;
+    font-family: var(--ff-body);
+    font-weight: 700;
+    font-size: 0.8rem;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    text-decoration: none;
+    cursor: pointer;
+    transition: background 0.2s, transform 0.1s;
+  }
+  .nav-cta:hover { background: var(--accent); transform: translateY(-1px); }
+
+  /* ── HERO ── */
+  #hero {
+    min-height: 100vh;
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    align-items: center;
+    padding: 0 3rem;
+    padding-top: 5rem;
+    position: relative;
+    overflow: hidden;
+  }
+  .hero-bg {
+    position: absolute;
+    inset: 0;
+    background:
+      radial-gradient(ellipse 60% 80% at 70% 50%, rgba(62,207,107,0.06) 0%, transparent 60%),
+      radial-gradient(ellipse 40% 60% at 20% 80%, rgba(62,207,107,0.04) 0%, transparent 60%);
+  }
+  .hero-grid-lines {
+    position: absolute;
+    inset: 0;
+    background-image:
+      linear-gradient(rgba(62,207,107,0.04) 1px, transparent 1px),
+      linear-gradient(90deg, rgba(62,207,107,0.04) 1px, transparent 1px);
+    background-size: 60px 60px;
+  }
+  .hero-content { position: relative; z-index: 2; }
+  .hero-tag {
+    display: inline-block;
+    background: var(--green-pale);
+    border: 1px solid var(--green-dim);
+    color: var(--green);
+    font-size: 0.75rem;
+    font-weight: 700;
+    letter-spacing: 0.18em;
+    text-transform: uppercase;
+    padding: 0.35rem 0.9rem;
+    margin-bottom: 1.5rem;
+  }
+  h1 {
+    font-family: var(--ff-display);
+    font-size: clamp(4rem, 7vw, 7.5rem);
+    line-height: 0.9;
+    letter-spacing: 0.02em;
+    margin-bottom: 1.5rem;
+  }
+  h1 .line-green { color: var(--green); }
+  .hero-sub {
+    font-size: 1.05rem;
+    color: var(--muted);
+    max-width: 42ch;
+    margin-bottom: 2.5rem;
+    line-height: 1.7;
+  }
+  .hero-actions { display: flex; gap: 1rem; flex-wrap: wrap; }
+  .btn-primary {
+    background: var(--green);
+    color: var(--black);
+    padding: 0.9rem 2rem;
+    font-family: var(--ff-body);
+    font-weight: 700;
+    font-size: 0.9rem;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    text-decoration: none;
+    border: none;
+    cursor: pointer;
+    transition: background 0.2s, transform 0.1s;
+  }
+  .btn-primary:hover { background: var(--accent); transform: translateY(-2px); }
+  .btn-ghost {
+    background: transparent;
+    color: var(--white);
+    padding: 0.9rem 2rem;
+    font-family: var(--ff-body);
+    font-weight: 600;
+    font-size: 0.9rem;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    text-decoration: none;
+    border: 1px solid var(--border);
+    cursor: pointer;
+    transition: border-color 0.2s, color 0.2s;
+  }
+  .btn-ghost:hover { border-color: var(--green); color: var(--green); }
+  .hero-visual {
+    position: relative;
+    z-index: 2;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  }
+  .hero-badge-ring {
+    width: 360px;
+    height: 360px;
+    border: 1px solid var(--border);
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    position: relative;
+    animation: spin-slow 30s linear infinite;
+  }
+  @keyframes spin-slow { to { transform: rotate(360deg); } }
+  .hero-badge-inner {
+    width: 260px;
+    height: 260px;
+    background: var(--card);
+    border: 1px solid var(--border);
+    border-radius: 50%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    animation: spin-slow 30s linear infinite reverse;
+    gap: 0.2rem;
+  }
+  .badge-year {
+    font-size: 0.7rem;
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    color: var(--muted);
+    font-weight: 600;
+  }
+  .badge-main {
+    font-family: var(--ff-display);
+    font-size: 3.2rem;
+    color: var(--green);
+    letter-spacing: 0.04em;
+    line-height: 1;
+  }
+  .badge-sub {
+    font-family: var(--ff-display);
+    font-size: 1.1rem;
+    color: var(--white);
+    letter-spacing: 0.1em;
+    line-height: 1;
+  }
+  .ring-dot {
+    width: 10px;
+    height: 10px;
+    background: var(--green);
+    border-radius: 50%;
+    position: absolute;
+    top: 12px;
+    left: 50%;
+    transform: translateX(-50%);
+  }
+  .hero-stats {
+    display: flex;
+    gap: 2rem;
+    margin-top: 3rem;
+    padding-top: 2rem;
+    border-top: 1px solid var(--border);
+  }
+  .hero-stat-value {
+    font-family: var(--ff-display);
+    font-size: 2.4rem;
+    color: var(--green);
+    letter-spacing: 0.04em;
+    line-height: 1;
+  }
+  .hero-stat-label { font-size: 0.8rem; color: var(--muted); margin-top: 0.25rem; text-transform: uppercase; letter-spacing: 0.1em; }
+
+  /* ── SECTION BASE ── */
+  section { padding: 6rem 3rem; }
+  .section-tag {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.5rem;
+    color: var(--green);
+    font-size: 0.75rem;
+    font-weight: 700;
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    margin-bottom: 1rem;
+  }
+  .section-tag::before {
+    content: '';
+    width: 24px;
+    height: 1px;
+    background: var(--green);
+  }
+  h2 {
+    font-family: var(--ff-display);
+    font-size: clamp(2.5rem, 5vw, 4.5rem);
+    letter-spacing: 0.03em;
+    line-height: 1;
+    margin-bottom: 1rem;
+  }
+  h2 .g { color: var(--green); }
+  .section-lead { font-size: 1rem; color: var(--muted); max-width: 50ch; margin-bottom: 3rem; line-height: 1.7; }
+
+  /* ── HORÁRIOS ── */
+  #horarios { background: var(--dark); }
+  .schedule-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+    gap: 1px;
+    background: var(--border);
+    border: 1px solid var(--border);
+    margin-bottom: 2rem;
+  }
+  .schedule-day {
+    background: var(--card);
+    padding: 1.5rem 1.25rem;
+    transition: background 0.2s;
+  }
+  .schedule-day:hover { background: var(--green-pale); }
+  .day-name {
+    font-family: var(--ff-display);
+    font-size: 1.4rem;
+    letter-spacing: 0.06em;
+    color: var(--green);
+    margin-bottom: 0.75rem;
+  }
+  .time-slot {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    font-size: 0.88rem;
+    color: var(--white);
+    padding: 0.4rem 0;
+    border-bottom: 1px solid var(--border);
+    font-weight: 500;
+  }
+  .time-slot:last-child { border-bottom: none; }
+  .time-dot {
+    width: 6px;
+    height: 6px;
+    background: var(--green);
+    border-radius: 50%;
+    flex-shrink: 0;
+  }
+  .schedule-note {
+    background: var(--green-pale);
+    border: 1px solid var(--green-dim);
+    padding: 1rem 1.25rem;
+    display: flex;
+    align-items: center;
+    gap: 0.75rem;
+    font-size: 0.88rem;
+    color: var(--accent);
+  }
+  .schedule-note strong { color: var(--green); }
+
+  /* ── MODALIDADES ── */
+  #modalidades { background: var(--black); }
+  .modalities-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+    gap: 1.5rem;
+  }
+  .modality-card {
+    background: var(--card);
+    border: 1px solid var(--border);
+    padding: 2rem;
+    position: relative;
+    overflow: hidden;
+    transition: border-color 0.2s, transform 0.2s;
+  }
+  .modality-card:hover { border-color: var(--green); transform: translateY(-3px); }
+  .modality-card::before {
+    content: '';
+    position: absolute;
+    top: 0; left: 0;
+    width: 3px; height: 100%;
+    background: var(--green);
+  }
+  .mod-icon {
+    font-size: 2rem;
+    margin-bottom: 1rem;
+  }
+  .mod-title {
+    font-family: var(--ff-display);
+    font-size: 1.6rem;
+    letter-spacing: 0.04em;
+    color: var(--white);
+    margin-bottom: 0.5rem;
+  }
+  .mod-desc {
+    font-size: 0.88rem;
+    color: var(--muted);
+    line-height: 1.6;
+  }
+
+  /* ── SOBRE ── */
+  #sobre {
+    background: var(--dark);
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 5rem;
+    align-items: center;
+  }
+  .sobre-list { list-style: none; margin-top: 1.5rem; display: flex; flex-direction: column; gap: 0.75rem; }
+  .sobre-list li {
+    display: flex;
+    align-items: flex-start;
+    gap: 0.75rem;
+    font-size: 0.95rem;
+    color: var(--muted);
+  }
+  .sobre-list li::before {
+    content: '';
+    width: 18px;
+    height: 18px;
+    background: var(--green-pale);
+    border: 1px solid var(--green);
+    border-radius: 50%;
+    flex-shrink: 0;
+    margin-top: 3px;
+    position: relative;
+  }
+  .sobre-list li strong { color: var(--white); }
+  .sobre-numbers {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 1.5rem;
+  }
+  .sobre-num-card {
+    background: var(--card);
+    border: 1px solid var(--border);
+    padding: 1.5rem;
+  }
+  .sobre-num-value {
+    font-family: var(--ff-display);
+    font-size: 3rem;
+    color: var(--green);
+    letter-spacing: 0.04em;
+    line-height: 1;
+  }
+  .sobre-num-label { font-size: 0.8rem; color: var(--muted); margin-top: 0.3rem; text-transform: uppercase; letter-spacing: 0.1em; }
+
+  /* ── PLANOS ── */
+  #planos { background: var(--black); }
+  .plans-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+    gap: 1.5rem;
+  }
+  .plan-card {
+    background: var(--card);
+    border: 1px solid var(--border);
+    padding: 2rem;
+    transition: border-color 0.2s, transform 0.2s;
+    position: relative;
+  }
+  .plan-card:hover { border-color: var(--green); transform: translateY(-4px); }
+  .plan-card.featured {
+    border-color: var(--green);
+    background: var(--green-pale);
+  }
+  .plan-featured-badge {
+    position: absolute;
+    top: -1px; right: 1.5rem;
+    background: var(--green);
+    color: var(--black);
+    font-size: 0.7rem;
+    font-weight: 700;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    padding: 0.3rem 0.75rem;
+  }
+  .plan-logo {
+    font-family: var(--ff-display);
+    font-size: 1.1rem;
+    letter-spacing: 0.1em;
+    color: var(--muted);
+    margin-bottom: 1rem;
+    text-transform: uppercase;
+  }
+  .plan-name {
+    font-family: var(--ff-display);
+    font-size: 2rem;
+    color: var(--white);
+    letter-spacing: 0.06em;
+    margin-bottom: 0.25rem;
+  }
+  .plan-desc { font-size: 0.85rem; color: var(--muted); margin-bottom: 1.5rem; line-height: 1.5; }
+  .plan-link {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.4rem;
+    color: var(--green);
+    text-decoration: none;
+    font-size: 0.85rem;
+    font-weight: 600;
+    letter-spacing: 0.06em;
+    text-transform: uppercase;
+    transition: gap 0.2s;
+  }
+  .plan-link:hover { gap: 0.7rem; }
+  .plan-link::after { content: '→'; }
+
+  /* ── CONTATO ── */
+  #contato {
+    background: var(--dark);
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 4rem;
+    align-items: start;
+  }
+  .contact-info-grid { display: flex; flex-direction: column; gap: 1rem; margin-top: 1rem; }
+  .contact-item {
+    background: var(--card);
+    border: 1px solid var(--border);
+    padding: 1.25rem 1.5rem;
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+    text-decoration: none;
+    color: inherit;
+    transition: border-color 0.2s;
+  }
+  .contact-item:hover { border-color: var(--green); }
+  .contact-icon {
+    width: 40px;
+    height: 40px;
+    background: var(--green-pale);
+    border: 1px solid var(--green-dim);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-shrink: 0;
+    font-size: 1.1rem;
+  }
+  .contact-item-label { font-size: 0.72rem; color: var(--muted); text-transform: uppercase; letter-spacing: 0.12em; }
+  .contact-item-value { font-size: 0.95rem; color: var(--white); font-weight: 500; margin-top: 0.1rem; }
+  .map-embed {
+    width: 100%;
+    aspect-ratio: 4/3;
+    border: 1px solid var(--border);
+    filter: grayscale(80%) invert(10%) brightness(0.8);
+  }
+
+  /* ── INSTAGRAM ── */
+  #instagram { background: var(--black); text-align: center; }
+  .insta-handle {
+    font-family: var(--ff-display);
+    font-size: clamp(3rem, 8vw, 7rem);
+    letter-spacing: 0.04em;
+    color: var(--green);
+    margin: 1rem 0 2rem;
+    text-decoration: none;
+    display: block;
+    transition: color 0.2s;
+  }
+  .insta-handle:hover { color: var(--accent); }
+  .insta-sub { font-size: 0.9rem; color: var(--muted); margin-bottom: 2rem; }
+
+  /* ── FOOTER ── */
+  footer {
+    background: var(--dark);
+    border-top: 1px solid var(--border);
+    padding: 2.5rem 3rem;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    flex-wrap: wrap;
+    gap: 1rem;
+  }
+  .footer-logo {
+    font-family: var(--ff-display);
+    font-size: 1.4rem;
+    letter-spacing: 0.06em;
+    color: var(--green);
+  }
+  .footer-logo span { color: var(--muted); }
+  .footer-copy { font-size: 0.8rem; color: var(--muted); }
+  .footer-links { display: flex; gap: 1.5rem; }
+  .footer-links a {
+    color: var(--muted);
+    text-decoration: none;
+    font-size: 0.82rem;
+    transition: color 0.2s;
+  }
+  .footer-links a:hover { color: var(--green); }
+
+  /* ── SCROLL ANIMATIONS ── */
+  .reveal {
+    opacity: 0;
+    transform: translateY(24px);
+    transition: opacity 0.6s ease, transform 0.6s ease;
+  }
+  .reveal.visible { opacity: 1; transform: translateY(0); }
+
+  /* ── RESPONSIVE ── */
+  @media (max-width: 900px) {
+    nav { padding: 1rem 1.5rem; }
+    .nav-links { display: none; }
+    #hero { grid-template-columns: 1fr; padding: 6rem 1.5rem 3rem; }
+    .hero-visual { display: none; }
+    section { padding: 4rem 1.5rem; }
+    #sobre, #contato { grid-template-columns: 1fr; gap: 2.5rem; }
+    footer { flex-direction: column; text-align: center; }
+  }
+</style>
 </head>
-
 <body>
-    <header class="menu-principal">
-        <main>
-            <div class="header-1">
-                <div class="logo">
-                    <img src="./img/logoecobox.png" />
-                </div>
-                <div class="redes-sociais">
-                    <ul>
-                        <li><a href=""><img src="./img/instagram.png" /></a></li>
-                        <li><a href=""><img src="./img/facebook.png" /></a></li>
-                        <li><a href=""><img src="./img/twitter.png" /></a></li>
-                        <li><a href=""><img src="./img/tiktok.png" /></a></li>
-                    </ul>
 
-                </div>
-            </div>
-        </main>
-    </header>
-    <main class="col-100 menu-urls">
-        <div class="header-2">
-            <div. class="menu">
-                <ul>
-                    <li><a href="">Home</a></li>
-                    <li><a href="">About Us</a></li>
-                    <li><a href="">Services</a></li>
-                    <li><a href="">Blog</a></li>
-                    <li><a href="">Contact Us</a></li>
-                </ul>
-            </div.>
-        </div>
-        <div. class="busca">
-            <input placeholder="Pesquisar" type="text" />
-            </div>
-            </div>
-    </main>
-    <div class="col-100">
-        <div class="slider-principal">
-            <img src="./img/people.jpeg" />
-            <img src="./img/people.jpeg" />
-            <img src="./img/people.jpeg" />
-        </div>
+<!-- NAV -->
+<nav>
+  <a href="#hero" class="nav-logo">ECO<span>BOX</span></a>
+  <ul class="nav-links">
+    <li><a href="#horarios">Horários</a></li>
+    <li><a href="#modalidades">Modalidades</a></li>
+    <li><a href="#sobre">Sobre</a></li>
+    <li><a href="#planos">Planos</a></li>
+    <li><a href="#contato">Contato</a></li>
+  </ul>
+  <a href="https://ecoboxtraining.wodengage.com/agende-sua-aula-experimental-ecobox-training" target="_blank" class="nav-cta">Aula Grátis</a>
+</nav>
+
+<!-- HERO -->
+<section id="hero">
+  <div class="hero-bg"></div>
+  <div class="hero-grid-lines"></div>
+  <div class="hero-content">
+    <div class="hero-tag">🌴 São Carlos – SP</div>
+    <h1>
+      SUA<br>
+      <span class="line-green">TRANS</span>FOR<br>MAÇÃO<br>COMEÇA<br>AQUI
+    </h1>
+    <p class="hero-sub">
+      O melhor Box de Cross Training de São Carlos. Coaches experientes, comunidade apaixonada e treinos que transformam de verdade.
+    </p>
+    <div class="hero-actions">
+      <a href="https://ecoboxtraining.wodengage.com/agende-sua-aula-experimental-ecobox-training" target="_blank" class="btn-primary">Agendar Aula Experimental</a>
+      <a href="#horarios" class="btn-ghost">Ver Horários</a>
     </div>
-    <script type="text/javascript" src="https://code.jquery.com/jquery-1.11.0.min.js"></script>
-    <script type="text/javascript" src="https://code.jquery.com/jquery-migrate-1.2.1.min.js"></script>
-    <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/slick-carousel@1.8.1/slick/slick.min.js"></script>
-    <script type="text/javascript" src="./Js/main.js"></script>
+    <div class="hero-stats">
+      <div>
+        <div class="hero-stat-value">+5</div>
+        <div class="hero-stat-label">Anos de Box</div>
+      </div>
+      <div>
+        <div class="hero-stat-value">3.7K</div>
+        <div class="hero-stat-label">Seguidores</div>
+      </div>
+      <div>
+        <div class="hero-stat-value">100%</div>
+        <div class="hero-stat-label">Dedicação</div>
+      </div>
+    </div>
+  </div>
+  <div class="hero-visual">
+    <div class="hero-badge-ring">
+      <div class="ring-dot"></div>
+      <div class="hero-badge-inner">
+        <div class="badge-year">Desde 2020</div>
+        <div class="badge-main">ECO</div>
+        <div class="badge-sub">TRAINING</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- HORÁRIOS -->
+<section id="horarios" class="reveal">
+  <div class="section-tag">Grade de aulas</div>
+  <h2>HORÁ<span class="g">RIOS</span></h2>
+  <p class="section-lead">Escolha o horário que melhor encaixa na sua rotina. Turmas de segunda a sábado com coaches qualificados.</p>
+  <div class="schedule-grid">
+    <div class="schedule-day">
+      <div class="day-name">Seg</div>
+      <div class="time-slot"><div class="time-dot"></div>06:15 – 07:15</div>
+      <div class="time-slot"><div class="time-dot"></div>07:15 – 08:15</div>
+      <div class="time-slot"><div class="time-dot"></div>08:15 – 09:15</div>
+      <div class="time-slot"><div class="time-dot"></div>12:00 – 13:00</div>
+      <div class="time-slot"><div class="time-dot"></div>16:15 – 17:15</div>
+      <div class="time-slot"><div class="time-dot"></div>17:15 – 18:15</div>
+      <div class="time-slot"><div class="time-dot"></div>18:15 – 19:15</div>
+      <div class="time-slot"><div class="time-dot"></div>19:15 – 20:15</div>
+    </div>
+    <div class="schedule-day">
+      <div class="day-name">Ter</div>
+      <div class="time-slot"><div class="time-dot"></div>06:15 – 07:15</div>
+      <div class="time-slot"><div class="time-dot"></div>07:15 – 08:15</div>
+      <div class="time-slot"><div class="time-dot"></div>08:15 – 09:15</div>
+      <div class="time-slot"><div class="time-dot"></div>12:00 – 13:00</div>
+      <div class="time-slot"><div class="time-dot"></div>16:15 – 17:15</div>
+      <div class="time-slot"><div class="time-dot"></div>17:15 – 18:15</div>
+      <div class="time-slot"><div class="time-dot"></div>18:15 – 19:15</div>
+      <div class="time-slot"><div class="time-dot"></div>19:15 – 20:15</div>
+    </div>
+    <div class="schedule-day">
+      <div class="day-name">Qua</div>
+      <div class="time-slot"><div class="time-dot"></div>06:15 – 07:15</div>
+      <div class="time-slot"><div class="time-dot"></div>07:15 – 08:15</div>
+      <div class="time-slot"><div class="time-dot"></div>08:15 – 09:15</div>
+      <div class="time-slot"><div class="time-dot"></div>12:00 – 13:00</div>
+      <div class="time-slot"><div class="time-dot"></div>16:15 – 17:15</div>
+      <div class="time-slot"><div class="time-dot"></div>17:15 – 18:15</div>
+      <div class="time-slot"><div class="time-dot"></div>18:15 – 19:15</div>
+      <div class="time-slot"><div class="time-dot"></div>19:15 – 20:15</div>
+    </div>
+    <div class="schedule-day">
+      <div class="day-name">Qui</div>
+      <div class="time-slot"><div class="time-dot"></div>06:15 – 07:15</div>
+      <div class="time-slot"><div class="time-dot"></div>07:15 – 08:15</div>
+      <div class="time-slot"><div class="time-dot"></div>08:15 – 09:15</div>
+      <div class="time-slot"><div class="time-dot"></div>12:00 – 13:00</div>
+      <div class="time-slot"><div class="time-dot"></div>16:15 – 17:15</div>
+      <div class="time-slot"><div class="time-dot"></div>17:15 – 18:15</div>
+      <div class="time-slot"><div class="time-dot"></div>18:15 – 19:15</div>
+      <div class="time-slot"><div class="time-dot"></div>19:15 – 20:15</div>
+    </div>
+    <div class="schedule-day">
+      <div class="day-name">Sex</div>
+      <div class="time-slot"><div class="time-dot"></div>06:15 – 07:15</div>
+      <div class="time-slot"><div class="time-dot"></div>07:15 – 08:15</div>
+      <div class="time-slot"><div class="time-dot"></div>08:15 – 09:15</div>
+      <div class="time-slot"><div class="time-dot"></div>12:00 – 13:00</div>
+      <div class="time-slot"><div class="time-dot"></div>16:15 – 17:15</div>
+      <div class="time-slot"><div class="time-dot"></div>17:15 – 18:15</div>
+      <div class="time-slot"><div class="time-dot"></div>18:15 – 19:15</div>
+      <div class="time-slot"><div class="time-dot"></div>19:15 – 20:15</div>
+    </div>
+    <div class="schedule-day">
+      <div class="day-name">Sáb</div>
+      <div class="time-slot"><div class="time-dot"></div>08:00 – 09:30</div>
+      <div class="time-slot"><div class="time-dot"></div>09:30 – 11:00</div>
+    </div>
+  </div>
+  <div class="schedule-note">
+    ⚡ <span>Os horários podem variar em feriados. Confirme sempre pelo <strong>Instagram @ecoboxtraining</strong> ou WhatsApp <strong>(16) 99459-7723</strong>.</span>
+  </div>
+</section>
+
+<!-- MODALIDADES -->
+<section id="modalidades" class="reveal">
+  <div class="section-tag">O que você treina</div>
+  <h2>MODALI<span class="g">DADES</span></h2>
+  <p class="section-lead">Treinos variados, intensos e guiados por coaches certificados para evoluir em todos os aspectos.</p>
+  <div class="modalities-grid">
+    <div class="modality-card">
+      <div class="mod-icon">⚡</div>
+      <div class="mod-title">CROSS TRAINING</div>
+      <p class="mod-desc">Modalidade principal do box. Treinos funcionais de alta intensidade combinando força, cardio e ginástica. Aulas em grupo com coach dedicado.</p>
+    </div>
+    <div class="modality-card">
+      <div class="mod-icon">🏋️</div>
+      <div class="mod-title">LEVANTAMENTO</div>
+      <p class="mod-desc">Desenvolvimento da força e técnica nos movimentos olímpicos: snatch, clean &amp; jerk e agachamentos. Progressão individualizada.</p>
+    </div>
+    <div class="modality-card">
+      <div class="mod-icon">🔥</div>
+      <div class="mod-title">TREINO FUNCIONAL</div>
+      <p class="mod-desc">Movimentos funcionais que melhoram a qualidade de vida e o desempenho atlético. Ideal para todos os níveis, do iniciante ao avançado.</p>
+    </div>
+    <div class="modality-card">
+      <div class="mod-icon">🎯</div>
+      <div class="mod-title">PERSONAL TRAINING</div>
+      <p class="mod-desc">Acompanhamento individualizado com planejamento de treino e nutrição personalizado. Resultados mais rápidos e eficientes.</p>
+    </div>
+  </div>
+</section>
+
+<!-- SOBRE -->
+<section id="sobre" class="reveal">
+  <div>
+    <div class="section-tag">Quem somos</div>
+    <h2>O ECO<span class="g">BOX</span></h2>
+    <p class="section-lead">Fundado em 2020, o ECOBOX Training nasceu com um propósito: transformar vidas através do movimento funcional de alta performance.</p>
+    <ul class="sobre-list">
+      <li><div><strong>Localizado no Jardim Brasil</strong>, um dos bairros mais acessíveis de São Carlos – SP.</div></li>
+      <li><div><strong>Coaches certificados</strong> com experiência em competições e formação contínua.</div></li>
+      <li><div><strong>Comunidade forte</strong> e acolhedora, de iniciantes a atletas experientes.</div></li>
+      <li><div><strong>Equipamentos completos</strong> e ambiente seguro para treinar com máxima qualidade.</div></li>
+      <li><div><strong>Aceita Gympass e TotalPass</strong> além de planos mensais diretos.</div></li>
+    </ul>
+  </div>
+  <div class="sobre-numbers">
+    <div class="sobre-num-card">
+      <div class="sobre-num-value">5+</div>
+      <div class="sobre-num-label">Anos de Box</div>
+    </div>
+    <div class="sobre-num-card">
+      <div class="sobre-num-value">3.7K</div>
+      <div class="sobre-num-label">Seguidores</div>
+    </div>
+    <div class="sobre-num-card">
+      <div class="sobre-num-value">776</div>
+      <div class="sobre-num-label">Posts no IG</div>
+    </div>
+    <div class="sobre-num-card">
+      <div class="sobre-num-value">∞</div>
+      <div class="sobre-num-label">Motivação</div>
+    </div>
+  </div>
+</section>
+
+<!-- PLANOS -->
+<section id="planos" class="reveal">
+  <div class="section-tag">Como treinar</div>
+  <h2>PLА<span class="g">NOS</span></h2>
+  <p class="section-lead">Escolha a melhor forma de fazer parte do ECOBOX. Planos diretos ou via convênio de bem-estar.</p>
+  <div class="plans-grid">
+    <div class="plan-card featured">
+      <div class="plan-featured-badge">Popular</div>
+      <div class="plan-logo">Plano Direto</div>
+      <div class="plan-name">Mensal</div>
+      <p class="plan-desc">Plano direto com o box. Acesso ilimitado a todas as modalidades e horários. Entre em contato para valores e condições especiais.</p>
+      <a href="https://wa.me/5516994597723?text=Olá!%20Gostaria%20de%20saber%20mais%20sobre%20os%20planos%20do%20ECOBOX%20Training." target="_blank" class="plan-link">Consultar via WhatsApp</a>
+    </div>
+    <div class="plan-card">
+      <div class="plan-logo">Wellhub</div>
+      <div class="plan-name">Gympass</div>
+      <p class="plan-desc">Use seus créditos do Gympass / Wellhub no ECOBOX. A partir do plano Silver. Flexibilidade máxima para quem já tem o benefício.</p>
+      <a href="https://wellhub.com/pt-br/search/partners/ecobox-training-baeeeeee-12f8-422b-af89-927528b8862c/" target="_blank" class="plan-link">Ver no Wellhub</a>
+    </div>
+    <div class="plan-card">
+      <div class="plan-logo">TotalPass</div>
+      <div class="plan-name">TotalPass</div>
+      <p class="plan-desc">O ECOBOX é credenciado no TotalPass. Se sua empresa oferece o benefício, você pode treinar aqui sem custo adicional.</p>
+      <a href="https://wa.me/5516994597723?text=Oi!%20Tenho%20TotalPass%20e%20quero%20treinar%20no%20ECOBOX." target="_blank" class="plan-link">Confirmar pelo WhatsApp</a>
+    </div>
+    <div class="plan-card">
+      <div class="plan-logo">Experimental</div>
+      <div class="plan-name">Aula Grátis</div>
+      <p class="plan-desc">Nunca treinou no ECOBOX? Agende uma aula experimental gratuita e venha conhecer a nossa comunidade sem compromisso.</p>
+      <a href="https://ecoboxtraining.wodengage.com/agende-sua-aula-experimental-ecobox-training" target="_blank" class="plan-link">Agendar Agora</a>
+    </div>
+  </div>
+</section>
+
+<!-- CONTATO -->
+<section id="contato" class="reveal">
+  <div>
+    <div class="section-tag">Nos encontre</div>
+    <h2>CONTA<span class="g">TO</span></h2>
+    <p class="section-lead">Estamos no Jardim Brasil em São Carlos. Venha nos visitar ou fale com a gente pelas redes.</p>
+    <div class="contact-info-grid">
+      <a href="https://wa.me/5516994597723" target="_blank" class="contact-item">
+        <div class="contact-icon">💬</div>
+        <div>
+          <div class="contact-item-label">WhatsApp</div>
+          <div class="contact-item-value">(16) 99459-7723</div>
+        </div>
+      </a>
+      <a href="https://www.instagram.com/ecoboxtraining/" target="_blank" class="contact-item">
+        <div class="contact-icon">📷</div>
+        <div>
+          <div class="contact-item-label">Instagram</div>
+          <div class="contact-item-value">@ecoboxtraining</div>
+        </div>
+      </a>
+      <a href="https://maps.google.com/?q=Rua+Geminiano+Costa,+2060,+Jardim+Brasil,+São+Carlos,+SP" target="_blank" class="contact-item">
+        <div class="contact-icon">📍</div>
+        <div>
+          <div class="contact-item-label">Endereço</div>
+          <div class="contact-item-value">R. Geminiano Costa, 2060 – Jardim Brasil, São Carlos – SP</div>
+        </div>
+      </a>
+      <div class="contact-item">
+        <div class="contact-icon">🕐</div>
+        <div>
+          <div class="contact-item-label">Horário de Funcionamento</div>
+          <div class="contact-item-value">Seg–Sex: 06:15–09:15 · 12:00–13:00 · 16:15–20:15</div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div>
+    <iframe
+      class="map-embed"
+      src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3697.7!2d-47.8984!3d-22.0175!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x94b88a22b1faaaab%3A0x0!2sR.+Geminiano+Costa%2C+2060+-+Jardim+Brasil%2C+S%C3%A3o+Carlos+-+SP%2C+13569-310!5e0!3m2!1spt!2sbr!4v1700000000000"
+      width="100%"
+      height="100%"
+      style="border:0;"
+      allowfullscreen=""
+      loading="lazy"
+      referrerpolicy="no-referrer-when-downgrade"
+      title="Localização ECOBOX Training">
+    </iframe>
+  </div>
+</section>
+
+<!-- INSTAGRAM CTA -->
+<section id="instagram" class="reveal">
+  <div class="section-tag">Siga a gente</div>
+  <a href="https://www.instagram.com/ecoboxtraining/" target="_blank" class="insta-handle">@ecoboxtraining</a>
+  <p class="insta-sub">Fotos de treinos, WODs do dia, conquistas da galera e muito mais. Faz parte da nossa comunidade!</p>
+  <a href="https://www.instagram.com/ecoboxtraining/" target="_blank" class="btn-primary">Ver no Instagram</a>
+</section>
+
+<!-- FOOTER -->
+<footer>
+  <div class="footer-logo">ECO<span>BOX</span> TRAINING</div>
+  <div class="footer-copy">© 2025 ECOBOX Training Ltda · São Carlos – SP</div>
+  <div class="footer-links">
+    <a href="https://www.instagram.com/ecoboxtraining/" target="_blank">Instagram</a>
+    <a href="https://wa.me/5516994597723" target="_blank">WhatsApp</a>
+    <a href="https://ecoboxtraining.wodengage.com/agende-sua-aula-experimental-ecobox-training" target="_blank">Aula Grátis</a>
+  </div>
+</footer>
+
+<script>
+  const reveals = document.querySelectorAll('.reveal');
+  const observer = new IntersectionObserver((entries) => {
+    entries.forEach(e => { if (e.isIntersecting) e.target.classList.add('visible'); });
+  }, { threshold: 0.1 });
+  reveals.forEach(r => observer.observe(r));
+</script>
 
 </body>
-
 </html>
